@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/home_screen"
+    android:orientation="vertical">
+
+    <pl.bclogic.pulsator4droid.library.PulsatorLayout
+        android:id="@+id/pulsator"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.25"
+        app:pulse_color="@color/white"
+        app:pulse_count="4"
+        app:pulse_duration="7000"
+        app:pulse_repeat="0"
+        app:pulse_startFromScratch="false">
+        <ImageView
+            android:layout_width="375dp"
+            android:layout_height="250dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/logo"
+            />
+    </pl.bclogic.pulsator4droid.library.PulsatorLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:textSize="25px"
+        android:textColor="#263238"
+        android:text="© Hitch Us - 2016 Todos los derechos reservados"
+        />
+
+
+</LinearLayout>
