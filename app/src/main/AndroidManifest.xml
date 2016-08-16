@@ -27,8 +27,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" android:theme="@style/AppThemeSplash"/>
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".SettingsActivity" android:label="Configuración" android:parentActivityName=".StartActivity"/>
+        <activity android:name=".ProfileActivity" android:label="Perfil" android:parentActivityName=".StartActivity" />
         <activity android:name=".HitchatsActivity" />
         <activity android:name=".StartActivity"></activity>
     </application>

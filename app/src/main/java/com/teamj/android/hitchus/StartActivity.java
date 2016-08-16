@@ -24,7 +24,7 @@ public class StartActivity extends OnboarderActivity {
         // Create your first page
         OnboarderPage onboarderPage1 = new OnboarderPage("Encuentra Hitches", "Tus Hitches son personas con tus mismas gustos e intereses que también te enviaron un Hitch y podrán encontrarse.",R.drawable.ic_favorite);
         OnboarderPage onboarderPage2 = new OnboarderPage("Chats Temporales", "Tienes 3 mensajes para cuadrar tu encuentro y eso no es todo ¡Ninguna evidencia quedará!",R.drawable.ic_message);
-        OnboarderPage onboarderPage3 = new OnboarderPage("Cuenta Premium", "Contamos con suscripciones PREMIUM para validar certificados de salud y demás beneficios.",R.drawable.ic_local_play);
+        OnboarderPage onboarderPage3 = new OnboarderPage("Cuenta Premium", "Contamos con suscripciones PREMIUM para validar certificados de salud y demás beneficios.",R.drawable.ic_recent_actors);
 
         // You can define title and description colors (by default white)
         onboarderPage1.setTitleColor(R.color.white);
@@ -58,5 +58,13 @@ public class StartActivity extends OnboarderActivity {
         StartActivity.this.startActivity(intent);
         StartActivity.this.finish();
 
+    }
+
+    @Override
+    protected void onSkipButtonPressed() {
+        super.onSkipButtonPressed();
+        Intent intent = new Intent(StartActivity.this, ProfileActivity.class);
+        StartActivity.this.startActivity(intent);
+        StartActivity.this.finish();
     }
 }
