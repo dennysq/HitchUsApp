@@ -10,8 +10,17 @@
 
     <include
         layout="@layout/app_bar_main"
+        android:id="@+id/app_bar_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+
+    <com.tusharchoudhary.timeline.Timeline
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:id="@+id/timeline_main_view"
+        />
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

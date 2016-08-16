@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("prf_user_logged",tietCorreo.getText().toString());
         editor.putString("prf_password_logged",tietPassword.getText().toString());
         editor.commit();
-        Intent intent = new Intent(LoginActivity.this, SettingsActivity.class);
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         LoginActivity.this.startActivity(intent);
         LoginActivity.this.finish();
 
@@ -91,14 +91,14 @@ public class LoginActivity extends AppCompatActivity {
             tietCorreo.setError("Se requiere un correo electrónico");
             isValidated = false;
         } else {
-            tietCorreo.setError("");
+            tietCorreo.setError(null);
         }
 
         if (tietPassword.getText().length() == 0) {
             tietPassword.setError("Se requiere una contraseña");
             isValidated = false;
         } else {
-            tietCorreo.setError("");
+            tietPassword.setError(null);
         }
 
         return  isValidated;

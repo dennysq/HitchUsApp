@@ -63,7 +63,7 @@ public class StartActivity extends OnboarderActivity {
     @Override
     protected void onSkipButtonPressed() {
         super.onSkipButtonPressed();
-        Intent intent = new Intent(StartActivity.this, ProfileActivity.class);
+        Intent intent = new Intent(StartActivity.this, LoginActivity.class);
         StartActivity.this.startActivity(intent);
         StartActivity.this.finish();
     }

@@ -16,21 +16,38 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
+            android:launchMode="singleTop"
+            android:parentActivityName=".LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppThemeSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" android:theme="@style/AppThemeSplash"/>
-        <activity android:name=".SettingsActivity" android:label="Configuración" android:parentActivityName=".StartActivity"/>
-        <activity android:name=".ProfileActivity" android:label="Perfil" android:parentActivityName=".StartActivity" />
-        <activity android:name=".HitchatsActivity" />
-        <activity android:name=".StartActivity"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:parentActivityName=".StartActivity"
+            android:theme="@style/AppThemeSplash" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Configuración"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity" />
+        </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:label="Perfil"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".HitchatsActivity"
+            android:label="Hitchats"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".StartActivity" android:parentActivityName=".SplashActivity"></activity>
     </application>
 
 </manifest>
