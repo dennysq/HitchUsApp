@@ -1,29 +1,28 @@
 package com.teamj.android.hitchus.adapter;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.amulyakhare.textdrawable.TextDrawable;
-import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
+import com.teamj.android.hitchus.LoginActivity;
+import com.teamj.android.hitchus.ProfileActivity;
 import com.teamj.android.hitchus.R;
-import com.teamj.android.hitchus.model.PaisOrigen;
 import com.teamj.android.hitchus.model.Usuario;
-import com.teamj.android.hitchus.utils.RequestWeb;
+import com.teamj.android.hitchus.service.remote.HitchusRequest;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,6 +96,8 @@ public class UsuarioAdapter extends RecyclerView.Adapter {
         if (holder instanceof UsuarioViewHolder) {
             // we need to show the "normal" state
 
+            Float auxRate = usuario.getCalificacion().floatValue();
+            auxRate = auxRate * 5.0f;
             holder.itemView.setBackgroundColor(Color.WHITE);
             //  holder.itemView.setActivated(selected);
             ((UsuarioViewHolder) holder).container.setVisibility(View.VISIBLE);
@@ -111,6 +112,27 @@ public class UsuarioAdapter extends RecyclerView.Adapter {
             ((UsuarioViewHolder) holder).txtGenero.setText(usuario.getGenero());
             ((UsuarioViewHolder) holder).txtNivelHitch.setText(usuario.getNivelHitch() + "");
             ((UsuarioViewHolder) holder).txtEdad.setText(usuario.getEdad());
+            ((UsuarioViewHolder) holder).rbCalificacion.setRating(auxRate);
+            ((UsuarioViewHolder) holder).btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            ((UsuarioViewHolder) holder).btnDetalles.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), ProfileActivity.class);
+                    v.getContext().startActivity(intent);
+                }
+            });
+            ((UsuarioViewHolder) holder).btnHitch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                }
+            });
 
 
             // Retrieves an image specified by the URL, displays it in the UI.
@@ -128,7 +150,7 @@ public class UsuarioAdapter extends RecyclerView.Adapter {
                         }
                     });
             // Access the RequestQueue through your singleton class.
-            RequestWeb.getInstance(holder.itemView.getContext()).addToRequestQueue(request);
+            HitchusRequest.getInstance(holder.itemView.getContext()).addToRequestQueue(request);
 
             if(usuario.getPremium().equals("V"))
             {
@@ -136,9 +158,8 @@ public class UsuarioAdapter extends RecyclerView.Adapter {
             }else{
                 ((UsuarioViewHolder) holder).imgPremium.setImageResource(R.drawable.ic_check_circle_disabled);
             }
-            Float auxRate = usuario.getCalificacion().floatValue();
-            auxRate = auxRate * 5.0f;
-            ((UsuarioViewHolder) holder).rbCalificacion.setRating(auxRate);
+
+
 
         }
 
@@ -181,6 +202,9 @@ public class UsuarioAdapter extends RecyclerView.Adapter {
         protected TextView txtNivelHitch;
         protected ImageView imgProfilePicture;
         protected LinearLayout container;
+        protected FloatingActionButton btnCancel;
+        protected FloatingActionButton btnHitch;
+        protected Button btnDetalles;
 
         public UsuarioViewHolder(View view) {
             super(view);
@@ -191,7 +215,11 @@ public class UsuarioAdapter extends RecyclerView.Adapter {
             txtEdad = (TextView) view.findViewById(R.id.txt_user_age);
             txtGenero = (TextView) view.findViewById(R.id.txt_user_gender);
             txtNivelHitch = (TextView) view.findViewById(R.id.txt_hitch_lvl);
+            btnCancel = (FloatingActionButton) view.findViewById(R.id.btn_cancel_hitch);
+            btnHitch = (FloatingActionButton) view.findViewById(R.id.btn_hitch);
+            btnDetalles = (Button) view.findViewById(R.id.btn_details);
             container = (LinearLayout) view.findViewById(R.id.container);
+
         }
     }
 

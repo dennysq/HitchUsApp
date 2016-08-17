@@ -86,10 +86,10 @@ public class MainActivity extends AppCompatActivity
 
     public void setDummyData()
     {
-        Usuario aux = new Usuario(1,"SeductoraHot","1234","sed@hotmail.com",1993,2,new BigDecimal(1.7f),true,"V","0995373041","Soltera",new BigDecimal(4.2f),"Masculino","Sex a lot","Delgada","Primaria","Ingles y Español",new BigDecimal(69),false,new Date(),new PaisOrigen(1,"Ecuador"),new CiudadResidencia(1,"Quito"),98,null,null);
-        Usuario aux1 = new Usuario(2,"SeductoraHot","1234","sed@hotmail.com",1993,2,new BigDecimal(1.7f),true,"V","0995373041","Soltera",new BigDecimal(1.2f),"Masculino","Sex a lot","Delgada","Primaria","Ingles y Español",new BigDecimal(69),false,new Date(),new PaisOrigen(1,"Ecuador"),new CiudadResidencia(1,"Quito"),98,null,null);
-        Usuario aux2 = new Usuario(3,"SeductoraHot","1234","sed@hotmail.com",1993,2,new BigDecimal(1.7f),true,"V","0995373041","Soltera",new BigDecimal(2.2f),"Masculino","Sex a lot","Delgada","Primaria","Ingles y Español",new BigDecimal(69),false,new Date(),new PaisOrigen(1,"Ecuador"),new CiudadResidencia(1,"Quito"),98,null,null);
-        Usuario aux3 = new Usuario(4,"SeductoraHot","1234","sed@hotmail.com",1993,2,new BigDecimal(1.7f),true,"V","0995373041","Soltera",new BigDecimal(3.2f),"Masculino","Sex a lot","Delgada","Primaria","Ingles y Español",new BigDecimal(69),false,new Date(),new PaisOrigen(1,"Ecuador"),new CiudadResidencia(1,"Quito"),98,null,null);
+        Usuario aux = new Usuario(1,"SeductoraHot","1234","sed@hotmail.com",1993,2,new BigDecimal(1.7f),true,"V","0995373041","Soltera",new BigDecimal(0.2f),"Masculino","Sex a lot","Delgada","Primaria","Ingles y Español",new BigDecimal(69),false,new Date(),new PaisOrigen(1,"Ecuador"),new CiudadResidencia(1,"Quito"),98,null,null);
+        Usuario aux1 = new Usuario(2,"SeductoraHot","1234","sed@hotmail.com",1993,2,new BigDecimal(1.7f),true,"P","0995373041","Soltera",new BigDecimal(0.3f),"Masculino","Sex a lot","Delgada","Primaria","Ingles y Español",new BigDecimal(69),false,new Date(),new PaisOrigen(1,"Ecuador"),new CiudadResidencia(1,"Quito"),98,null,null);
+        Usuario aux2 = new Usuario(3,"SeductoraHot","1234","sed@hotmail.com",1993,2,new BigDecimal(1.7f),true,"N","0995373041","Soltera",new BigDecimal(0.5f),"Masculino","Sex a lot","Delgada","Primaria","Ingles y Español",new BigDecimal(69),false,new Date(),new PaisOrigen(1,"Ecuador"),new CiudadResidencia(1,"Quito"),98,null,null);
+        Usuario aux3 = new Usuario(4,"SeductoraHot","1234","sed@hotmail.com",1993,2,new BigDecimal(1.7f),true,"V","0995373041","Soltera",new BigDecimal(1.0f),"Masculino","Sex a lot","Delgada","Primaria","Ingles y Español",new BigDecimal(69),false,new Date(),new PaisOrigen(1,"Ecuador"),new CiudadResidencia(1,"Quito"),98,null,null);
         usuarios.add(aux);
         usuarios.add(aux1);
         usuarios.add(aux2);
