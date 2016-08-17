@@ -141,11 +141,6 @@ public class CalificacionEncuentro implements Serializable {
         this.general = general;
     }
 
-
-  
-
-
-
     @Override
     public String toString() {
         return "Calificacion_Encuentro{" + "calificacionEncuentroPK=" + calificacionEncuentroPK + ", usuario=" + usuario + ", encuentro=" + encuentro + ", higiene=" + higiene + ", comportamiento=" + comportamiento + ", amabilidad=" + amabilidad + ", general=" + general + '}';

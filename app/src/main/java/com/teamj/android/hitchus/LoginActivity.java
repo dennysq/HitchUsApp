@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this,"Error:"+error,Toast.LENGTH_LONG).show();
             }
         });
-
+usuarioRemote.retrieveCompatibleUsers();
 
     }
 
