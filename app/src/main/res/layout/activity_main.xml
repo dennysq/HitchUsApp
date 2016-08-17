@@ -14,13 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-
-    <com.tusharchoudhary.timeline.Timeline
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:id="@+id/timeline_main_view"
-        />
+    <include layout="@layout/container_row_user_hitch_us" />
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

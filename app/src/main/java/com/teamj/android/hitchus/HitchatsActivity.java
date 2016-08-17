@@ -8,6 +8,6 @@ public class HitchatsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hitchats);
+        setContentView(R.layout.row_user_hitch_us);
     }
 }

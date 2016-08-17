@@ -50,8 +50,12 @@ public class LoginActivity extends AppCompatActivity {
     public void onBtnLoginClicked(View view) {
         //Get Json User then Init The Application IF
         if(validateFields())
-            logInAndSavePreferences();
-
+            //logInAndSavePreferences();
+        {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            LoginActivity.this.startActivity(intent);
+            LoginActivity.this.finish();
+        }
 
     }
 
@@ -87,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.commit();
                 Toast.makeText(LoginActivity.this,response.toString(),Toast.LENGTH_LONG).show();
                 //System.out.println(response);
-                Intent intent = new Intent(LoginActivity.this, SettingsActivity.class);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 LoginActivity.this.startActivity(intent);
                 LoginActivity.this.finish();
             }
@@ -114,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.commit();
                 Toast.makeText(LoginActivity.this,response.toString(),Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(LoginActivity.this, SettingsActivity.class);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 LoginActivity.this.startActivity(intent);
                 LoginActivity.this.finish();
             }

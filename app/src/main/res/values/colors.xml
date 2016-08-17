@@ -9,5 +9,7 @@
     <color name="colorPrimaryHitchUs">#1565C0</color>
     <color name="colorPrimaryDarkHitchUs">#0D47A1</color>
     <color name="colorTextHitchUs">#212121</color>
+    <color name="colorCancel">#F44336</color>
+    <color name="colorOK">#01579B</color>
 
 </resources>

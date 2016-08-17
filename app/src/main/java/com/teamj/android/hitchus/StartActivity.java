@@ -22,9 +22,9 @@ public class StartActivity extends OnboarderActivity {
         onboarderPages = new ArrayList<OnboarderPage>();
 
         // Create your first page
-        OnboarderPage onboarderPage1 = new OnboarderPage("Encuentra Hitches", "Tus Hitches son personas con tus mismas gustos e intereses que también te enviaron un Hitch y podrán encontrarse.",R.drawable.ic_favorite);
-        OnboarderPage onboarderPage2 = new OnboarderPage("Chats Temporales", "Tienes 3 mensajes para cuadrar tu encuentro y eso no es todo ¡Ninguna evidencia quedará!",R.drawable.ic_message);
-        OnboarderPage onboarderPage3 = new OnboarderPage("Cuenta Premium", "Contamos con suscripciones PREMIUM para validar certificados de salud y demás beneficios.",R.drawable.ic_recent_actors);
+        OnboarderPage onboarderPage1 = new OnboarderPage("Hitches", "Tus Hitches son personas con tus mismos intereses y gustos con los que podrás encontrarte.",R.drawable.ic_favorite);
+        OnboarderPage onboarderPage2 = new OnboarderPage("HitChats", "Cuadra tu encuentro en 3 mensajes y lo mejor de todo ¡Ninguna evidencia quedará!",R.drawable.ic_message);
+        OnboarderPage onboarderPage3 = new OnboarderPage("HitchUs Premium", "Suscripciones PREMIUM para una cuenta más segura y con más beneficios.",R.drawable.ic_recent_actors);
 
         // You can define title and description colors (by default white)
         onboarderPage1.setTitleColor(R.color.white);
