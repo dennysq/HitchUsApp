@@ -17,12 +17,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.teamj.android.hitchus.adapter.OnRecyclerViewItemClickListener;
 import com.teamj.android.hitchus.adapter.UsuarioAdapter;
 import com.teamj.android.hitchus.model.CiudadResidencia;
 import com.teamj.android.hitchus.model.PaisOrigen;
 import com.teamj.android.hitchus.model.Usuario;
+import com.teamj.android.hitchus.service.remote.UsuarioRemote;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -36,6 +40,8 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView mRecyclerView;
     private UsuarioAdapter usuarioAdapter;
     private int selectedItem = -1;
+    private UsuarioRemote usuarioRemote;
+    SharedPreferences settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +67,14 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        settings = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        //  usuarioRemote.retrieveCompatibleUsers();
+        usuarioRemote = new UsuarioRemote(this);
         initialize();
 
     }
 
-    public void initialize()
-    {
+    public void initialize() {
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_contract_list);
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -80,16 +87,47 @@ public class MainActivity extends AppCompatActivity
         usuarioAdapter.setListener(this);
         //getDataFromFile();
         mRecyclerView.setAdapter(usuarioAdapter);
-        setDummyData();
+        // setDummyData();
+
+        retrieveRemoteData();
 
     }
 
-    public void setDummyData()
-    {
-        Usuario aux = new Usuario(1,"SeductoraHot","1234","sed@hotmail.com",1993,2,new BigDecimal(1.7f),true,"V","0995373041","Soltera",new BigDecimal(0.2f),"Masculino","Sex a lot","Delgada","Primaria","Ingles y Español",new BigDecimal(69),false,new Date(),new PaisOrigen(1,"Ecuador"),new CiudadResidencia(1,"Quito"),98,null,null);
-        Usuario aux1 = new Usuario(2,"SeductoraHot","1234","sed@hotmail.com",1993,2,new BigDecimal(1.7f),true,"P","0995373041","Soltera",new BigDecimal(0.3f),"Masculino","Sex a lot","Delgada","Primaria","Ingles y Español",new BigDecimal(69),false,new Date(),new PaisOrigen(1,"Ecuador"),new CiudadResidencia(1,"Quito"),98,null,null);
-        Usuario aux2 = new Usuario(3,"SeductoraHot","1234","sed@hotmail.com",1993,2,new BigDecimal(1.7f),true,"N","0995373041","Soltera",new BigDecimal(0.5f),"Masculino","Sex a lot","Delgada","Primaria","Ingles y Español",new BigDecimal(69),false,new Date(),new PaisOrigen(1,"Ecuador"),new CiudadResidencia(1,"Quito"),98,null,null);
-        Usuario aux3 = new Usuario(4,"SeductoraHot","1234","sed@hotmail.com",1993,2,new BigDecimal(1.7f),true,"V","0995373041","Soltera",new BigDecimal(1.0f),"Masculino","Sex a lot","Delgada","Primaria","Ingles y Español",new BigDecimal(69),false,new Date(),new PaisOrigen(1,"Ecuador"),new CiudadResidencia(1,"Quito"),98,null,null);
+    private void retrieveRemoteData() {
+        int id = settings.getInt("prf_id_logged", -1);
+        id = 1;
+        if (id != -1) {
+
+            usuarioRemote.retrieveCompatibleUsers(String.valueOf(id), "18", "24", "20", "50", "MFO", new Response.Listener<Usuario[]>() {
+                @Override
+                public void onResponse(Usuario[] response) {
+                    if (response != null) {
+                        for (Usuario u : response) {
+                            usuarios.add(u);
+                        }
+                        usuarioAdapter.notifyDataSetChanged();
+                        System.out.println("usuarios encontrados:" + response.length);
+                    } else {
+                        System.out.println("respuesta nula:");
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(MainActivity.this, "Error: " + error, Toast.LENGTH_LONG).show();
+                }
+            });
+        } else {
+            Toast.makeText(MainActivity.this, "Error: No se ha guardado el id del usuario", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    public void setDummyData() {
+        Usuario aux = new Usuario(1, "SeductoraHot", "1234", "sed@hotmail.com", 1993, 2, new BigDecimal(1.7f), true, "V", "0995373041", "Soltera", new BigDecimal(0.2f), "Masculino", "Sex a lot", "Delgada", "Primaria", "Ingles y Español", new BigDecimal(69), false, new Date(), new PaisOrigen(1, "Ecuador"), new CiudadResidencia(1, "Quito"), 98, null, null);
+        Usuario aux1 = new Usuario(2, "SeductoraHot", "1234", "sed@hotmail.com", 1993, 2, new BigDecimal(1.7f), true, "P", "0995373041", "Soltera", new BigDecimal(0.3f), "Masculino", "Sex a lot", "Delgada", "Primaria", "Ingles y Español", new BigDecimal(69), false, new Date(), new PaisOrigen(1, "Ecuador"), new CiudadResidencia(1, "Quito"), 98, null, null);
+        Usuario aux2 = new Usuario(3, "SeductoraHot", "1234", "sed@hotmail.com", 1993, 2, new BigDecimal(1.7f), true, "N", "0995373041", "Soltera", new BigDecimal(0.5f), "Masculino", "Sex a lot", "Delgada", "Primaria", "Ingles y Español", new BigDecimal(69), false, new Date(), new PaisOrigen(1, "Ecuador"), new CiudadResidencia(1, "Quito"), 98, null, null);
+        Usuario aux3 = new Usuario(4, "SeductoraHot", "1234", "sed@hotmail.com", 1993, 2, new BigDecimal(1.7f), true, "V", "0995373041", "Soltera", new BigDecimal(1.0f), "Masculino", "Sex a lot", "Delgada", "Primaria", "Ingles y Español", new BigDecimal(69), false, new Date(), new PaisOrigen(1, "Ecuador"), new CiudadResidencia(1, "Quito"), 98, null, null);
         usuarios.add(aux);
         usuarios.add(aux1);
         usuarios.add(aux2);
@@ -159,8 +197,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void exitToApp()
-    {
+    public void exitToApp() {
         SharedPreferences settings;
         // Restore or Initialize preferences
         settings = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);

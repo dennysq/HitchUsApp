@@ -82,13 +82,13 @@ public class LoginActivity extends AppCompatActivity {
         usuarioRemote.logging(userLogged,passwordLogged, new Response.Listener<Usuario>() {
             @Override
             public void onResponse(Usuario response) {
-                SharedPreferences settings;
+                //SharedPreferences settings;
                 // Restore or Initialize preferences
-                settings = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putString("prf_user_logged",userLogged);
-                editor.putString("prf_password_logged",passwordLogged);
-                editor.commit();
+               // settings = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = settings.edit();
+//                editor.putString("prf_user_logged",userLogged);
+//                editor.putString("prf_password_logged",passwordLogged);
+//                editor.commit();
                 Toast.makeText(LoginActivity.this,response.toString(),Toast.LENGTH_LONG).show();
                 //System.out.println(response);
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -115,7 +115,9 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString("prf_user_logged",tietCorreo.getText().toString());
                 editor.putString("prf_password_logged",tietPassword.getText().toString());
+                editor.putInt("prf_id_logged",response.getId());
                 editor.commit();
+
                 Toast.makeText(LoginActivity.this,response.toString(),Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);

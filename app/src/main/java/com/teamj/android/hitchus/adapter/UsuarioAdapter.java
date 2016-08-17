@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
+import com.teamj.android.hitchus.HitchusApplication;
 import com.teamj.android.hitchus.LoginActivity;
 import com.teamj.android.hitchus.ProfileActivity;
 import com.teamj.android.hitchus.R;
@@ -30,7 +31,7 @@ import java.util.List;
  * Created by Andres on 31/05/2016.
  */
 public class UsuarioAdapter extends RecyclerView.Adapter {
-
+private static final String SERVLET="http://"+ HitchusApplication.DEV_HOST+":"+HitchusApplication.PORT+"/"+HitchusApplication.IMAGE_SERVLET+"/";
     private OnRecyclerViewItemClickListener listener;
     List<Usuario> usuarios = new ArrayList<>();
     int selectedPosition = -1;
@@ -136,14 +137,15 @@ public class UsuarioAdapter extends RecyclerView.Adapter {
 
 
             // Retrieves an image specified by the URL, displays it in the UI.
-            //ImageRequest request = new ImageRequest(usuario.getProfileImageURL(), new Response.Listener<Bitmap>() {
-            ImageRequest request = new ImageRequest("http://lorempixel.com/400/400/sports/", new Response.Listener<Bitmap>() {
+            ImageRequest request = new ImageRequest(SERVLET+usuario.getProfileImageURL()+".jpg", new Response.Listener<Bitmap>() {
+
+            //ImageRequest request = new ImageRequest("http://lorempixel.com/400/400/sports/", new Response.Listener<Bitmap>() {
 
                         @Override
                         public void onResponse(Bitmap bitmap) {
                             imgProfile.setImageBitmap(bitmap);
                         }
-                    }, 0, 0, null,
+                    }, 0, 0, ImageView.ScaleType.CENTER_INSIDE,Bitmap.Config.RGB_565,
                     new Response.ErrorListener(){
                         public void onErrorResponse(VolleyError error) {
                             imgProfile.setImageResource(R.drawable.image_not_found);

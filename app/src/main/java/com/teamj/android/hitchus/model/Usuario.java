@@ -345,7 +345,7 @@ public class Usuario implements Serializable {
     public String getProfileImageURL() {
         for (Imagen i : this.getImagenes()) {
             if (i.getPerfil()) {
-                return i.getUrl();
+                return String.valueOf(i.getId());
             }
         }
         return null;

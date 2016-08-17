@@ -3,16 +3,11 @@ package com.teamj.android.hitchus.service.remote;
 import android.content.Context;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.teamj.android.hitchus.HitchusApplication;
 import com.teamj.android.hitchus.model.Usuario;
 
-import java.lang.reflect.Type;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -80,7 +75,7 @@ public static final String RESOURCE_NAME="usuario";
         params.put("nivelCompatibilidad", nivelCompatibilidad);
         params.put("genero", genero);
 
-        GsonRequest<Usuario[]> request= new GsonRequest<Usuario[]>(Request.Method.POST, URL+"/"+RESOURCE_NAME+"/"+METHOD_NAME,Usuario[].class, header,params,listener,errorListener);
+        GsonRequest<Usuario[]> request= new GsonRequest<>(Request.Method.POST, URL+"/"+RESOURCE_NAME+"/"+METHOD_NAME,Usuario[].class, header,params,listener,errorListener);
         HitchusRequest.getInstance(context).addToRequestQueue(request);
         HitchusRequest.getInstance(context).
                 getRequestQueue().start();

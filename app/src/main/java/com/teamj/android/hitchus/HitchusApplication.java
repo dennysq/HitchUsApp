@@ -12,6 +12,7 @@ public class HitchusApplication extends Application {
     public static final String URL="http://localhost:8082/HitchUs-web/webresources/usuario/loggin";
     public static final String PRODUCTION_HOST="192.168.100.4";
     public static final String REQUEST_PATH="HitchUs-web/webresources";
+    public static final String IMAGE_SERVLET="HitchUs-web/imageshitchus";
 
 
 }
