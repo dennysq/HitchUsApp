@@ -331,8 +331,11 @@ public class Usuario implements Serializable {
         Calendar cal = Calendar.getInstance();
         cal.setTime(fechaActual);
         int year = cal.get(Calendar.YEAR);
-        return (year - this.anioNacimiento) + "";
-
+        int month = cal.get(Calendar.MONTH);
+        if(month>this.getMesNacimiento())
+            return (year - this.anioNacimiento) + "";
+        else
+            return (year - this.anioNacimiento -1) + "";
 
     }
 
@@ -348,6 +351,17 @@ public class Usuario implements Serializable {
                 return String.valueOf(i.getId());
             }
         }
-        return null;
+        return "user_default";
+    }
+
+    public ArrayList<String> getStringImages()
+    {
+        ArrayList<String> auxList=new ArrayList<>();
+        for (Imagen i : this.getImagenes()) {
+
+                auxList.add(String.valueOf(i.getId()));
+
+        }
+        return auxList;
     }
 }

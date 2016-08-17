@@ -28,68 +28,72 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+
         settings = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-        if(hasSavedPreferences())
+        if (hasSavedPreferences())
             logInWithPreferences();
-        else
+        else {
+            setContentView(R.layout.activity_login);
             initialize();
+        }
     }
 
-    public void initialize()
-    {
+    public void initialize() {
         tilCorreo = (TextInputLayout) findViewById(R.id.input_layout_mail);
-        tilPassword = (TextInputLayout)findViewById(R.id.input_layout_password);
+        tilPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
         tilCorreo.setErrorEnabled(true);
         tilPassword.setErrorEnabled(true);
-        tietCorreo = (TextInputEditText)findViewById(R.id.input_mail);
-        tietPassword = (TextInputEditText)findViewById(R.id.input_password);
+        tietCorreo = (TextInputEditText) findViewById(R.id.input_mail);
+        tietPassword = (TextInputEditText) findViewById(R.id.input_password);
     }
 
     public void onBtnLoginClicked(View view) {
         //Get Json User then Init The Application IF
-        if(validateFields())
-            //logInAndSavePreferences();
-        {
+        if (validateFields())
+            logInAndSavePreferences();
+        /*{
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             LoginActivity.this.startActivity(intent);
             LoginActivity.this.finish();
-        }
+        }*/
 
     }
 
-    public Boolean hasSavedPreferences()
-    {
-        String userLogged = "";
-        String passwordLogged = "";
+    public Boolean hasSavedPreferences() {
+
+        String userLogged;
+        String passwordLogged;
+        int idLogged;
 
         // Restore or Initialize preferences
-        userLogged = settings.getString("prf_user_logged", "");
-        passwordLogged = settings.getString("prf_password_logged", "");
-        if (userLogged.equals("") && passwordLogged.equals("")) {
+        userLogged = settings.getString(getString(R.string.user_logged), getString(R.string.prf_user_logged));
+        passwordLogged = settings.getString(getString(R.string.password_logged), getString(R.string.prf_password_logged));
+        idLogged = settings.getInt(getString(R.string.id_logged), Integer.parseInt(getString(R.string.prf_id_logged)));
+        if (userLogged.equals(getString(R.string.prf_user_logged)) && passwordLogged.equals(getString(R.string.prf_password_logged)) && idLogged== Integer.parseInt(getString(R.string.prf_id_logged))) {
             return false;
         } else {
             return true;
         }
     }
 
-    public void logInWithPreferences()
-    {
-        final String userLogged = settings.getString("prf_user_logged", "");
-        final String passwordLogged = settings.getString("prf_password_logged", "");
-        UsuarioRemote usuarioRemote=new UsuarioRemote(this);
-        usuarioRemote.logging(userLogged,passwordLogged, new Response.Listener<Usuario>() {
+    public void logInWithPreferences() {
+        final String userLogged = settings.getString(getString(R.string.user_logged), getString(R.string.prf_user_logged));
+        final String passwordLogged = settings.getString(getString(R.string.password_logged), getString(R.string.prf_password_logged));
+
+        final UsuarioRemote usuarioRemote = new UsuarioRemote(this);
+        usuarioRemote.logging(userLogged, passwordLogged, new Response.Listener<Usuario>() {
             @Override
             public void onResponse(Usuario response) {
-                //SharedPreferences settings;
                 // Restore or Initialize preferences
-               // settings = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = settings.edit();
-//                editor.putString("prf_user_logged",userLogged);
-//                editor.putString("prf_password_logged",passwordLogged);
-//                editor.commit();
-                Toast.makeText(LoginActivity.this,response.toString(),Toast.LENGTH_LONG).show();
+                settings = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString(getString(R.string.prf_user_logged), response.getEmail());
+                editor.putString(getString(R.string.prf_password_logged), response.getPassword());
+                editor.putString(getString(R.string.prf_id_logged), response.getId()+"");
+
+                editor.commit();
+                Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_LONG).show();
                 //System.out.println(response);
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 LoginActivity.this.startActivity(intent);
@@ -98,14 +102,13 @@ public class LoginActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LoginActivity.this,"Error:"+error,Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Error:" + error, Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    public void logInAndSavePreferences()
-    {
-        UsuarioRemote usuarioRemote=new UsuarioRemote(this);
+    public void logInAndSavePreferences() {
+        UsuarioRemote usuarioRemote = new UsuarioRemote(this);
         usuarioRemote.logging(tietCorreo.getText().toString(), tietPassword.getText().toString(), new Response.Listener<Usuario>() {
             @Override
             public void onResponse(Usuario response) {
@@ -113,12 +116,12 @@ public class LoginActivity extends AppCompatActivity {
                 // Restore or Initialize preferences
                 settings = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = settings.edit();
-                editor.putString("prf_user_logged",tietCorreo.getText().toString());
-                editor.putString("prf_password_logged",tietPassword.getText().toString());
-                editor.putInt("prf_id_logged",response.getId());
+                editor.putString(getString(R.string.user_logged), tietCorreo.getText().toString());
+                editor.putString(getString(R.string.password_logged), tietPassword.getText().toString());
+                editor.putInt(getString(R.string.id_logged), response.getId());
                 editor.commit();
 
-                Toast.makeText(LoginActivity.this,response.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 LoginActivity.this.startActivity(intent);
@@ -127,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LoginActivity.this,"Error:"+error,Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Error:" + error, Toast.LENGTH_LONG).show();
             }
         });
         //usuarioRemote.retrieveCompatibleUsers();
@@ -151,6 +154,6 @@ public class LoginActivity extends AppCompatActivity {
             tietPassword.setError(null);
         }
 
-        return  isValidated;
+        return isValidated;
     }
 }

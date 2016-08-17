@@ -50,15 +50,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -93,12 +84,36 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void retrieveRemoteData() {
-        int id = settings.getInt("prf_id_logged", -1);
-        id = 1;
-        if (id != -1) {
+    public String getGender()
+    {
+        String aux = "";
+        if(settings.getBoolean(getString(R.string.male),Boolean.getBoolean(getString(R.string.prf_male))))
+            aux+="M";
+        else
+            aux+="_";
+        if(settings.getBoolean(getString(R.string.female),Boolean.getBoolean(getString(R.string.prf_female))))
+            aux+="F";
+        else
+            aux+="_";
+        if(settings.getBoolean(getString(R.string.other),Boolean.getBoolean(getString(R.string.prf_other))))
+            aux+="O";
+        else
+            aux+="_";
 
-            usuarioRemote.retrieveCompatibleUsers(String.valueOf(id), "18", "24", "20", "50", "MFO", new Response.Listener<Usuario[]>() {
+        return aux;
+    }
+    private void retrieveRemoteData() {
+        int id = settings.getInt(getString(R.string.id_logged), Integer.parseInt(getString(R.string.prf_id_logged)));
+        //id = 1;
+
+        if (id != -1) {
+            int edadMinima = settings.getInt(getString(R.string.min_age),Integer.parseInt(getString(R.string.prf_min_age)));
+            int edadMaxima = settings.getInt(getString(R.string.max_age),Integer.parseInt(getString(R.string.prf_max_age)));
+            int distancia = settings.getInt(getString(R.string.distance),Integer.parseInt(getString(R.string.prf_distance)));
+            int hitchLevel = settings.getInt(getString(R.string.hitch_lvl),Integer.parseInt(getString(R.string.prf_hitch_lvl)));
+
+
+            usuarioRemote.retrieveCompatibleUsers(String.valueOf(id), edadMinima+"", edadMaxima+"", distancia+"", hitchLevel+"", getGender(), new Response.Listener<Usuario[]>() {
                 @Override
                 public void onResponse(Usuario[] response) {
                     if (response != null) {
@@ -132,8 +147,6 @@ public class MainActivity extends AppCompatActivity
         usuarios.add(aux1);
         usuarios.add(aux2);
         usuarios.add(aux3);
-
-
     }
 
 
@@ -162,7 +175,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.refresh_hitches) {
+            usuarios.clear();
+            retrieveRemoteData();
             return true;
         }
 
