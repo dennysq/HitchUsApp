@@ -8,12 +8,14 @@ package com.teamj.android.hitchus.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 
 /**
- *
  * @author Dennys
  */
 
@@ -85,13 +87,17 @@ public class Usuario implements Serializable {
 
     private CiudadResidencia ciudadResidencia;
 
+    private Integer nivelHitch;
+
 
     private List<Encuentro> encuentros;
     private List<Imagen> imagenes;
+
     public Usuario() {
     }
 
-    public Usuario(String nickname, String password, String email, Integer anioNacimiento, Integer mesNacimiento, BigDecimal estatura, Boolean trabajo, String premium, String numeroTelefonico, String estado, BigDecimal calificacion, String genero, String intereses, String contextura, String nivelEducacion, String idiomas, BigDecimal peso, Date creado, Boolean enfermedadesPublica) {
+    public Usuario(Integer id, String nickname, String password, String email, Integer anioNacimiento, Integer mesNacimiento, BigDecimal estatura, Boolean trabajo, String premium, String numeroTelefonico, String estado, BigDecimal calificacion, String genero, String intereses, String contextura, String nivelEducacion, String idiomas, BigDecimal peso, Boolean enfermedadesPublica, Date creado, PaisOrigen paisOrigen, CiudadResidencia ciudadResidencia, Integer nivelHitch, List<Encuentro> encuentros, List<Imagen> imagenes) {
+        this.id = id;
         this.nickname = nickname;
         this.password = password;
         this.email = email;
@@ -109,78 +115,24 @@ public class Usuario implements Serializable {
         this.nivelEducacion = nivelEducacion;
         this.idiomas = idiomas;
         this.peso = peso;
-        this.creado = creado;
         this.enfermedadesPublica = enfermedadesPublica;
+        this.creado = creado;
+        this.paisOrigen = paisOrigen;
+        this.ciudadResidencia = ciudadResidencia;
+        this.nivelHitch = nivelHitch;
+        //this.encuentros = encuentros;
+        //this.imagenes = imagenes;
+        this.encuentros = new ArrayList<>();
+        this.imagenes = new ArrayList<>();
     }
 
+    public Integer getNivelHitch() {
+        return nivelHitch;
+    }
 
-
-
-//    @PostUpdate
-//    public void updateNoSqlUser() {
-//        System.out.println("actualizndo en mongo");
-//        UsuarioDAO usuarioDAO = new UsuarioDAO(com.teamj.arquitectura.hitchus.nosql.model.Usuario.class, PersistenceManager.instance().datastore());
-//        // com.teamj.arquitectura.hitchus.nosql.model.Usuario user = new com.teamj.arquitectura.hitchus.nosql.model.Usuario();
-//        com.teamj.arquitectura.hitchus.nosql.model.Usuario user = usuarioDAO.findOne("idUsuario", id);
-//        if (user != null) {
-//            Query<com.teamj.arquitectura.hitchus.nosql.model.Usuario> query = PersistenceManager.instance().datastore().createQuery(com.teamj.arquitectura.hitchus.nosql.model.Usuario.class).field("idUsuario").equal(id);
-//            UpdateOperations<com.teamj.arquitectura.hitchus.nosql.model.Usuario> ops;
-//            if (ciudadResidencia != null && paisOrigen != null) {
-//                ops = PersistenceManager.instance().datastore()
-//                        .createUpdateOperations(com.teamj.arquitectura.hitchus.nosql.model.Usuario.class)
-//                        .set("anioNacimiento", anioNacimiento)
-//                        .set("calificacion", calificacion==null?0.0f:calificacion.floatValue())
-//                        .set("contextura", contextura==null?"":contextura)
-//                        .set("email", email)
-//                        .set("enfermedadesPublica", enfermedadesPublica)
-//                        .set("estado", estado==null?"":estado)
-//                        .set("estatura", estatura==null?0.0f:estatura.floatValue())
-//                        .set("genero", genero==null?"":genero)
-//                        .set("idiomas", idiomas==null?"":idiomas)
-//                        .set("intereses", intereses==null?"":intereses)
-//                        .set("mesNacimiento", mesNacimiento)
-//                        .set("nickname", nickname==null?"":nickname)
-//                        .set("nivelEducacion", nivelEducacion==null?"":nivelEducacion)
-//                        .set("numeroTelefonico", numeroTelefonico==null?"":numeroTelefonico)
-//                        .set("password", password)
-//                        .set("peso", peso==null?0.0f:peso.floatValue())
-//                        .set("premium", premium==null?"":premium)
-//                        .set("ciudadResidencia", ciudadResidencia.getNombre())
-//                        .set("paisOrigen", paisOrigen.getNombre())
-//                        .set("trabajo", trabajo==null?"":trabajo);
-//
-//            } else {
-//                ops = PersistenceManager.instance().datastore()
-//                        .createUpdateOperations(com.teamj.arquitectura.hitchus.nosql.model.Usuario.class)
-//                        .set("anioNacimiento", anioNacimiento)
-//                        .set("calificacion", calificacion.floatValue())
-//                        .set("contextura", contextura)
-//                        .set("email", email)
-//                        .set("enfermedadesPublica", enfermedadesPublica)
-//                        .set("estado", estado)
-//                        .set("estatura", estatura.floatValue())
-//                        .set("genero", genero)
-//                        .set("idiomas", idiomas)
-//                        .set("intereses", intereses)
-//                        .set("mesNacimiento", mesNacimiento)
-//                        .set("nickname", nickname)
-//                        .set("nivelEducacion", nivelEducacion)
-//                        .set("numeroTelefonico", numeroTelefonico)
-//                        .set("password", password)
-//                        .set("peso", peso.floatValue())
-//                        .set("premium", premium)
-//                        .set("trabajo", trabajo);
-//            }
-//            //com.teamj.arquitectura.hitchus.nosql.model.Usuario temp = usuarioDAO.findOne("email", user.getEmail());
-//            //if (temp == null) {
-//            usuarioDAO.update(query, ops);
-//
-//        }
-
-        // } else {
-        //}
-    //}
-
+    public void setNivelHitch(Integer nivelHitch) {
+        this.nivelHitch = nivelHitch;
+    }
 
     public List<Imagen> getImagenes() {
         return imagenes;
@@ -374,8 +326,28 @@ public class Usuario implements Serializable {
         this.ciudadResidencia = ciudadResidencia;
     }
 
+    public String getEdad() {
+        Date fechaActual = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(fechaActual);
+        int year = cal.get(Calendar.YEAR);
+        return (year - this.anioNacimiento) + "";
+
+
+    }
+
     @Override
     public String toString() {
         return "Usuario{" + "id=" + id + ", nickname=" + nickname + ", password=" + password + ", email=" + email + ", anioNacimiento=" + anioNacimiento + ", mesNacimiento=" + mesNacimiento + ", estatura=" + estatura + ", trabajo=" + trabajo + ", premium=" + premium + ", numeroTelefonico=" + numeroTelefonico + ", estado=" + estado + ", calificacion=" + calificacion + ", genero=" + genero + ", intereses=" + intereses + ", contextura=" + contextura + ", nivelEducacion=" + nivelEducacion + ", idiomas=" + idiomas + ", peso=" + peso + ", creado=" + creado + ", enfermedadesPublica=" + enfermedadesPublica + '}';
+    }
+
+
+    public String getProfileImageURL() {
+        for (Imagen i : this.getImagenes()) {
+            if (i.getPerfil()) {
+                return i.getUrl();
+            }
+        }
+        return null;
     }
 }

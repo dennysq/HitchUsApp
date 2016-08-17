@@ -101,4 +101,5 @@ public class Imagen implements Serializable {
         return "Imagen{" + "id=" + id + ", usuario=" + usuario + ", descripcion=" + descripcion + ", publica=" + publica + ", perfil=" + perfil + ", url=" + url + '}';
     }
 
+
 }

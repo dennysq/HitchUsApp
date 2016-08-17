@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,10 +17,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.teamj.android.hitchus.adapter.OnRecyclerViewItemClickListener;
+import com.teamj.android.hitchus.adapter.UsuarioAdapter;
+import com.teamj.android.hitchus.model.CiudadResidencia;
+import com.teamj.android.hitchus.model.PaisOrigen;
+import com.teamj.android.hitchus.model.Usuario;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnRecyclerViewItemClickListener {
+
+    private List<Usuario> usuarios;
+    private RecyclerView mRecyclerView;
+    private UsuarioAdapter usuarioAdapter;
+    private int selectedItem = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +64,40 @@ public class MainActivity extends AppCompatActivity
 
         initialize();
 
-
     }
 
     public void initialize()
     {
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_contract_list);
+        mRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(llm);
+        usuarios = new ArrayList<>();
+
+        usuarioAdapter = new UsuarioAdapter(usuarios, mRecyclerView);
+
+        usuarioAdapter.setListener(this);
+        //getDataFromFile();
+        mRecyclerView.setAdapter(usuarioAdapter);
+        setDummyData();
 
     }
+
+    public void setDummyData()
+    {
+        Usuario aux = new Usuario(1,"SeductoraHot","1234","sed@hotmail.com",1993,2,new BigDecimal(1.7f),true,"V","0995373041","Soltera",new BigDecimal(4.2f),"Masculino","Sex a lot","Delgada","Primaria","Ingles y Español",new BigDecimal(69),false,new Date(),new PaisOrigen(1,"Ecuador"),new CiudadResidencia(1,"Quito"),98,null,null);
+        Usuario aux1 = new Usuario(2,"SeductoraHot","1234","sed@hotmail.com",1993,2,new BigDecimal(1.7f),true,"V","0995373041","Soltera",new BigDecimal(1.2f),"Masculino","Sex a lot","Delgada","Primaria","Ingles y Español",new BigDecimal(69),false,new Date(),new PaisOrigen(1,"Ecuador"),new CiudadResidencia(1,"Quito"),98,null,null);
+        Usuario aux2 = new Usuario(3,"SeductoraHot","1234","sed@hotmail.com",1993,2,new BigDecimal(1.7f),true,"V","0995373041","Soltera",new BigDecimal(2.2f),"Masculino","Sex a lot","Delgada","Primaria","Ingles y Español",new BigDecimal(69),false,new Date(),new PaisOrigen(1,"Ecuador"),new CiudadResidencia(1,"Quito"),98,null,null);
+        Usuario aux3 = new Usuario(4,"SeductoraHot","1234","sed@hotmail.com",1993,2,new BigDecimal(1.7f),true,"V","0995373041","Soltera",new BigDecimal(3.2f),"Masculino","Sex a lot","Delgada","Primaria","Ingles y Español",new BigDecimal(69),false,new Date(),new PaisOrigen(1,"Ecuador"),new CiudadResidencia(1,"Quito"),98,null,null);
+        usuarios.add(aux);
+        usuarios.add(aux1);
+        usuarios.add(aux2);
+        usuarios.add(aux3);
+
+
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -130,5 +174,23 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    @Override
+    public void onRecyclerViewItemRemoveClicked(int position, int id) {
 
+    }
+
+    @Override
+    public void onRecyclerViewItemClicked(int position, int id) {
+
+    }
+
+    @Override
+    public void onRecyclerViewItemLongClicked(int position, int id) {
+
+    }
+
+    @Override
+    public void onRecyclerViewItemModifyClicked(int position, int id) {
+
+    }
 }

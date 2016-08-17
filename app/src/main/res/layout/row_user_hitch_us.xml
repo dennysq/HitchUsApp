@@ -16,7 +16,7 @@
         android:paddingTop="4dp">
 
         <ImageView
-            android:id="@+id/client_image"
+            android:id="@+id/img_profile_picture"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_gravity="center"
@@ -53,6 +53,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <ImageView
+                android:id="@+id/img_premium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
