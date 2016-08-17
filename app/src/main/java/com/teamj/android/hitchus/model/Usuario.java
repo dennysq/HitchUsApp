@@ -86,8 +86,8 @@ public class Usuario implements Serializable {
     private CiudadResidencia ciudadResidencia;
 
 
-    List<Encuentro> encuentros;
-
+    private List<Encuentro> encuentros;
+    private List<Imagen> imagenes;
     public Usuario() {
     }
 
@@ -182,7 +182,21 @@ public class Usuario implements Serializable {
     //}
 
 
+    public List<Imagen> getImagenes() {
+        return imagenes;
+    }
 
+    public void setImagenes(List<Imagen> imagenes) {
+        this.imagenes = imagenes;
+    }
+
+    public List<Encuentro> getEncuentros() {
+        return encuentros;
+    }
+
+    public void setEncuentros(List<Encuentro> encuentros) {
+        this.encuentros = encuentros;
+    }
 
     public Integer getId() {
         return id;
