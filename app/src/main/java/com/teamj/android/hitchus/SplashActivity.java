@@ -7,10 +7,12 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.teamj.android.hitchus.service.remote.TestActivity;
+
 import pl.bclogic.pulsator4droid.library.PulsatorLayout;
 
 public class SplashActivity extends AppCompatActivity {
-
+boolean isTest=true;
     /**
      * Duration of wait
      **/
@@ -28,6 +30,11 @@ public class SplashActivity extends AppCompatActivity {
         pulsator.start();
         /* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/
+        if(isTest){
+            Intent mainIntent = new Intent(SplashActivity.this, TestActivity.class);
+            SplashActivity.this.startActivity(mainIntent);
+            SplashActivity.this.finish();
+        }else{
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -38,7 +45,7 @@ public class SplashActivity extends AppCompatActivity {
                 SplashActivity.this.finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
-    }
+    }}
 
     public Class displayActivityFilterByPreferences() {
         String userLogged = "";

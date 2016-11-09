@@ -31,7 +31,7 @@ import java.util.List;
  * Created by Andres on 31/05/2016.
  */
 public class UsuarioAdapter extends RecyclerView.Adapter {
-private static final String SERVLET="http://"+ HitchusApplication.DEV_HOST+":"+HitchusApplication.PORT+"/"+HitchusApplication.IMAGE_SERVLET+"/";
+public static final String SERVLET="http://"+ HitchusApplication.DEV_HOST+":"+HitchusApplication.PORT+"/"+HitchusApplication.IMAGE_SERVLET+"/";
     private OnRecyclerViewItemClickListener listener;
     List<Usuario> usuarios = new ArrayList<>();
     int selectedPosition = -1;
