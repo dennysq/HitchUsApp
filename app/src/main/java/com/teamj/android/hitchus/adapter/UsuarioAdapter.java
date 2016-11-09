@@ -3,7 +3,9 @@ package com.teamj.android.hitchus.adapter;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -114,27 +116,6 @@ public static final String SERVLET="http://"+ HitchusApplication.DEV_HOST+":"+Hi
             ((UsuarioViewHolder) holder).txtNivelHitch.setText(usuario.getNivelHitch() + "");
             ((UsuarioViewHolder) holder).txtEdad.setText(usuario.getEdad());
             ((UsuarioViewHolder) holder).rbCalificacion.setRating(auxRate);
-            ((UsuarioViewHolder) holder).btnCancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-            ((UsuarioViewHolder) holder).btnDetalles.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), ProfileActivity.class);
-                    v.getContext().startActivity(intent);
-                }
-            });
-            ((UsuarioViewHolder) holder).btnHitch.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-
-                }
-            });
-
 
             // Retrieves an image specified by the URL, displays it in the UI.
             ImageRequest request = new ImageRequest(SERVLET+usuario.getProfileImageURL()+".jpg", new Response.Listener<Bitmap>() {
@@ -148,7 +129,7 @@ public static final String SERVLET="http://"+ HitchusApplication.DEV_HOST+":"+Hi
                     }, 0, 0, ImageView.ScaleType.CENTER_INSIDE,Bitmap.Config.RGB_565,
                     new Response.ErrorListener(){
                         public void onErrorResponse(VolleyError error) {
-                            imgProfile.setImageResource(R.drawable.image_not_found);
+                            imgProfile.setImageResource(R.drawable.user_default);
                         }
                     });
             // Access the RequestQueue through your singleton class.
@@ -161,7 +142,33 @@ public static final String SERVLET="http://"+ HitchusApplication.DEV_HOST+":"+Hi
                 ((UsuarioViewHolder) holder).imgPremium.setImageResource(R.drawable.ic_check_circle_disabled);
             }
 
+            ((UsuarioViewHolder) holder).btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Discard the hitch and block
+                    remove(position);
 
+
+                }
+            });
+            ((UsuarioViewHolder) holder).btnDetalles.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), ProfileActivity.class);
+                    Bundle b = new Bundle();
+                    b.putSerializable("user",getItemAt(position)); //Your id
+                    intent.putExtras(b); //Put your id to your next Intent
+                    v.getContext().startActivity(intent);
+                }
+            });
+            ((UsuarioViewHolder) holder).btnHitch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Do something to save the Hitch and remove
+                    remove(position);
+
+                }
+            });
 
         }
 
@@ -174,7 +181,7 @@ public static final String SERVLET="http://"+ HitchusApplication.DEV_HOST+":"+Hi
 
     public void remove(int position) {
         usuarios.remove(position);
-        notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 
     public void add(Usuario usuario) {

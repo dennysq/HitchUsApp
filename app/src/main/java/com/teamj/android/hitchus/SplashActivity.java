@@ -48,17 +48,17 @@ boolean isTest=true;
     }}
 
     public Class displayActivityFilterByPreferences() {
-        String userLogged = "";
-        String passwordLogged = "";
+        String userLogged;
+        String passwordLogged;
         SharedPreferences settings;
         // Restore or Initialize preferences
         settings = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        userLogged = settings.getString("prf_user_logged", "");
-        passwordLogged = settings.getString("prf_password_logged", "");
-        if (userLogged.equals("") && passwordLogged.equals("")) {
+        userLogged = settings.getString(getString(R.string.user_logged),getString(R.string.prf_user_logged));
+        passwordLogged = settings.getString(getString(R.string.password_logged),getString(R.string.prf_password_logged));
+        if (userLogged.equals(getString(R.string.prf_user_logged)) && passwordLogged.equals(R.string.prf_password_logged)) {
             return StartActivity.class;
         } else {
-            return MainActivity.class;
+            return LoginActivity.class;
         }
     }
 

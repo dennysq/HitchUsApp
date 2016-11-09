@@ -47,12 +47,12 @@ public class SettingsActivity extends AppCompatActivity {
                 if (thumbIndex == 0) {
                     txtMinAge.setText(String.valueOf(value));
                     SharedPreferences.Editor editor = settings.edit();
-                    editor.putInt("prf_min_age",value);
+                    editor.putInt(getString(R.string.min_age),value);
                     editor.commit();
                 } else {
                     txtMaxAge.setText(String.valueOf(value));
                     SharedPreferences.Editor editor = settings.edit();
-                    editor.putInt("prf_max_age",value);
+                    editor.putInt(getString(R.string.max_age),value);
                     editor.commit();
                 }
             }
@@ -61,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public boolean persistInt(int value) {
                 SharedPreferences.Editor editor = settings.edit();
-                editor.putInt("prf_hitch_lvl",value);
+                editor.putInt(getString(R.string.hitch_lvl),value);
                 editor.commit();
                 return  true;
             }
@@ -70,7 +70,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public boolean persistInt(int value) {
                 SharedPreferences.Editor editor = settings.edit();
-                editor.putInt("prf_distance",value);
+                editor.putInt(getString(R.string.distance),value);
                 editor.commit();
                 return  true;
             }
@@ -93,19 +93,19 @@ public class SettingsActivity extends AppCompatActivity {
         sbDistance = (SeekBarPreferenceView) findViewById(R.id.slideDistance);
         // Restore or Initialize preferences
         settings = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        chkMale.setChecked(settings.getBoolean("prf_male",true));
-        chkFemale.setChecked(settings.getBoolean("prf_female",true));
-        chkOther.setChecked(settings.getBoolean("prf_other",false));
+        chkMale.setChecked(settings.getBoolean(getString(R.string.male),Boolean.valueOf(getString(R.string.prf_male))));
+        chkFemale.setChecked(settings.getBoolean(getString(R.string.female),Boolean.valueOf(getString(R.string.prf_female))));
+        chkOther.setChecked(settings.getBoolean(getString(R.string.other),Boolean.valueOf(getString(R.string.prf_other))));
         if(chkOther.isChecked() && chkFemale.isChecked() && chkMale.isChecked())
         {
             chkAll.setChecked(true);
         }
-        mslRangeAge.getThumb(0).setValue(settings.getInt("prf_min_age",18));
-        mslRangeAge.getThumb(1).setValue(settings.getInt("prf_max_age",35));
-        txtMinAge.setText(settings.getInt("prf_min_age",18)+"");
-        txtMaxAge.setText(settings.getInt("prf_max_age",35)+"");
-        sbHitchLevel.setCurrentValue(settings.getInt("prf_hitch_lvl",35));
-        sbDistance.setCurrentValue(settings.getInt("prf_distance",5));
+        mslRangeAge.getThumb(0).setValue(settings.getInt(getString(R.string.min_age),Integer.parseInt((getString(R.string.prf_min_age)))));
+        mslRangeAge.getThumb(1).setValue(settings.getInt(getString(R.string.max_age),Integer.parseInt((getString(R.string.prf_max_age)))));
+        txtMinAge.setText(settings.getInt(getString(R.string.min_age),Integer.parseInt((getString(R.string.prf_min_age))))+"");
+        txtMaxAge.setText(settings.getInt(getString(R.string.max_age),Integer.parseInt((getString(R.string.prf_max_age))))+"");
+        sbHitchLevel.setCurrentValue(settings.getInt(getString(R.string.hitch_lvl),Integer.parseInt((getString(R.string.prf_hitch_lvl)))));
+        sbDistance.setCurrentValue(settings.getInt(getString(R.string.distance),Integer.parseInt((getString(R.string.prf_distance)))));
 
     }
 
@@ -117,9 +117,9 @@ public class SettingsActivity extends AppCompatActivity {
         chkOther.setChecked(activate);
 
         SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean("prf_male",activate);
-        editor.putBoolean("prf_female",activate);
-        editor.putBoolean("prf_other",activate);
+        editor.putBoolean(getString(R.string.male),activate);
+        editor.putBoolean(getString(R.string.female),activate);
+        editor.putBoolean(getString(R.string.other),activate);
         editor.commit();
     }
 
@@ -127,7 +127,7 @@ public class SettingsActivity extends AppCompatActivity {
         CheckBox chkAux = (CheckBox) view;
         boolean activate = chkAux.isChecked();
         SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean("prf_male",activate);
+        editor.putBoolean(getString(R.string.male),activate);
         editor.commit();
     }
 
@@ -135,7 +135,7 @@ public class SettingsActivity extends AppCompatActivity {
         CheckBox chkAux = (CheckBox) view;
         boolean activate = chkAux.isChecked();
         SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean("prf_female",activate);
+        editor.putBoolean(getString(R.string.female),activate);
         editor.commit();
     }
 
@@ -143,7 +143,7 @@ public class SettingsActivity extends AppCompatActivity {
         CheckBox chkAux = (CheckBox) view;
         boolean activate = chkAux.isChecked();
         SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean("prf_other",activate);
+        editor.putBoolean(getString(R.string.other),activate);
         editor.commit();
     }
 
